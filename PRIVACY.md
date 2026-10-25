@@ -19,6 +19,7 @@ When you sign in:
 - Your handle and app password are sent over HTTPS to `bsky.social` to authenticate your account.
 - Bluesky returns authentication tokens, which the extension stores temporarily using Firefox's `storage.session` API.
 - The extension retains your account handle and identifier to display your sign-in status and verify the account used for posting.
+
 The extension does not persistently store your app password. If you choose to save it in Firefox's built-in password manager, Firefox stores it as a separate login for the extension, distinct from any login saved for `bsky.app`.
 
 Your Bluesky website session and extension authentication session are separate.
