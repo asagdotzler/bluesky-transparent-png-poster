@@ -1,6 +1,6 @@
 # Privacy Policy — Bluesky Transparent PNG Poster
 
-*Effective date: To be set at public release*
+*Effective date: October 25, 2026*
 
 ## Overview
 
