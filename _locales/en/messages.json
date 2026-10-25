@@ -1,0 +1,824 @@
+{
+  "extensionName": {
+    "message": "Bluesky Transparent PNG Poster",
+    "description": "Extension name shown by Firefox."
+  },
+  "extensionDescription": {
+    "message": "Add transparent PNGs to the Bluesky web composer without flattening their alpha channel.",
+    "description": "Extension description shown by Firefox."
+  },
+  "actionTitle": {
+    "message": "Transparent PNG Poster",
+    "description": "Firefox toolbar action title."
+  },
+  "textDirection": {
+    "message": "ltr",
+    "description": "Writing direction for this locale. Use 'ltr' or 'rtl'."
+  },
+  "panelDocumentTitle": {
+    "message": "Transparent PNGs",
+    "description": "Document title for the compose panel."
+  },
+  "popupDocumentTitle": {
+    "message": "Transparent PNG",
+    "description": "Document title for the Firefox toolbar popup."
+  },
+  "popupTitle": {
+    "message": "Transparent PNG Poster",
+    "description": "Heading in the Firefox toolbar popup."
+  },
+  "panelTitle": {
+    "message": "Add transparent PNGs",
+    "description": "Heading in the compose panel."
+  },
+  "cancel": {
+    "message": "Cancel",
+    "description": "Cancel button label."
+  },
+  "post": {
+    "message": "Post",
+    "description": "Publish button label."
+  },
+  "notSignedIn": {
+    "message": "Not signed in",
+    "description": "Account status when the extension has no Bluesky session."
+  },
+  "signedInAs": {
+    "message": "Signed in as $HANDLE$",
+    "description": "Account status when signed in.",
+    "placeholders": {
+      "handle": {
+        "content": "$1",
+        "example": "alice.bsky.social"
+      }
+    }
+  },
+  "blueskyHandle": {
+    "message": "Bluesky handle",
+    "description": "Label and placeholder for the Bluesky account identifier."
+  },
+  "blueskyAppPassword": {
+    "message": "Bluesky app password",
+    "description": "Label and placeholder for a Bluesky app password."
+  },
+  "signIn": {
+    "message": "Sign in",
+    "description": "Sign-in button label."
+  },
+  "signOut": {
+    "message": "Sign out",
+    "description": "Sign-out button label."
+  },
+  "appPasswordHelp": {
+    "message": "Use a Bluesky app password, not your account password. $LINK$.",
+    "description": "Complete app-password guidance with one placeholder for the real app-password-settings link; translator may reorder and punctuate.",
+    "placeholders": {
+      "link": {
+        "content": "$1",
+        "example": "Create an app password"
+      }
+    }
+  },
+  "createAppPassword": {
+    "message": "Create an app password",
+    "description": "Link to Bluesky app-password settings."
+  },
+  "postText": {
+    "message": "Post text",
+    "description": "Label for the post text field."
+  },
+  "postLength": {
+    "message": "Post length",
+    "description": "Accessible name for the post-length progress indicator."
+  },
+  "postTextPlaceholder": {
+    "message": "Write or edit post text (optional).",
+    "description": "Placeholder for the post text field."
+  },
+  "postCharacterMaximum": {
+    "message": "300 character maximum.",
+    "description": "Accessible description of Bluesky's 300-grapheme post limit."
+  },
+  "addPng": {
+    "message": "Add PNG",
+    "description": "Label for the native file picker control."
+  },
+  "addPngHint": {
+    "message": "Paste PNGs, drop them anywhere in this dialog, or choose Add PNG.",
+    "description": "Explains the supported ways to add PNG files."
+  },
+  "newTransparentPngPost": {
+    "message": "New transparent PNG post",
+    "description": "Toolbar-popup button that starts a fresh transparent-PNG post."
+  },
+  "addTransparentPngLauncher": {
+    "message": "Add transparent PNG",
+    "description": "Accessible label and tooltip for the PNG launcher injected into Bluesky's composer."
+  },
+  "transparentPngTools": {
+    "message": "Transparent PNG tools",
+    "description": "Title of the extension iframe inserted into Bluesky."
+  },
+  "countOfMaximum": {
+    "message": "$CURRENT$/$MAXIMUM$",
+    "description": "Compact current-count / maximum-count display.",
+    "placeholders": {
+      "current": {
+        "content": "$1",
+        "example": "42"
+      },
+      "maximum": {
+        "content": "$2",
+        "example": "300"
+      }
+    }
+  },
+  "pngLimitReached": {
+    "message": "$CURRENT$ of $MAXIMUM$ PNGs — maximum reached",
+    "description": "Visible and accessible status when all four PNG attachment slots are filled and native Add PNG input is disabled.",
+    "placeholders": {
+      "current": {
+        "content": "$1",
+        "example": "4"
+      },
+      "maximum": {
+        "content": "$2",
+        "example": "4"
+      }
+    }
+  },
+  "altCountStatusSeparator": {
+    "message": " · ",
+    "description": "Visible separator, including surrounding spacing, between the alt-text character count and status."
+  },
+  "postTextExceedsCharacterMaximum": {
+    "message": "Post text exceeds the $MAXIMUM$ character maximum.",
+    "description": "Validation error when post text is over the grapheme limit.",
+    "placeholders": {
+      "maximum": {
+        "content": "$1",
+        "example": "300"
+      }
+    }
+  },
+  "postTextExceedsSizeLimit": {
+    "message": "Post text exceeds Bluesky's text size limit.",
+    "description": "Validation error when post text exceeds Bluesky's UTF-8 byte limit."
+  },
+  "imagesAdded_one": {
+    "message": "Added $FILENAME$. Alt text required.",
+    "description": "Screen-reader confirmation after adding one PNG.",
+    "placeholders": {
+      "filename": {
+        "content": "$1",
+        "example": "diagram.png"
+      }
+    }
+  },
+  "imagesAdded_other": {
+    "message": "Added $COUNT$ PNGs. Alt text required for each.",
+    "description": "Screen-reader confirmation after adding multiple PNGs.",
+    "placeholders": {
+      "count": {
+        "content": "$1",
+        "example": "2"
+      }
+    }
+  },
+  "imagesAddedColor_one": {
+    "message": "Added $FILENAME$. $COLORNOTE$ Alt text required.",
+    "description": "Screen-reader confirmation after adding one resized PNG with changed color information. Color note precedes the alt-text requirement.",
+    "placeholders": {
+      "filename": {
+        "content": "$1",
+        "example": "diagram.png"
+      },
+      "colornote": {
+        "content": "$2",
+        "example": "Colors may differ after resizing."
+      }
+    }
+  },
+  "imagesAddedColor_other": {
+    "message": "Added $COUNT$ PNGs. $COLORNOTE$ Alt text required for each.",
+    "description": "Screen-reader confirmation after adding multiple PNGs when one or more have changed color information. Color note precedes the alt-text requirement.",
+    "placeholders": {
+      "count": {
+        "content": "$1",
+        "example": "2"
+      },
+      "colornote": {
+        "content": "$2",
+        "example": "Colors may differ after resizing."
+      }
+    }
+  },
+  "fileSizeKilobytes": {
+    "message": "$VALUE$ KB",
+    "description": "File size in kilobytes.",
+    "placeholders": {
+      "value": {
+        "content": "$1",
+        "example": "125.4"
+      }
+    }
+  },
+  "fileSizeMegabytes": {
+    "message": "$VALUE$ MB",
+    "description": "File size in megabytes.",
+    "placeholders": {
+      "value": {
+        "content": "$1",
+        "example": "1.95"
+      }
+    }
+  },
+  "optimizedFileSize": {
+    "message": "$ORIGINAL$ → $NEW$ · optimized",
+    "description": "Shows original and optimized image sizes.",
+    "placeholders": {
+      "original": {
+        "content": "$1",
+        "example": "3.2 MB"
+      },
+      "new": {
+        "content": "$2",
+        "example": "1.8 MB"
+      }
+    }
+  },
+  "colorMayChangeAfterResize": {
+    "message": "Colors may have changed.",
+    "description": "Quiet note in the image footer if color-signaling chunks changed during image resizing. This color warning follows the optimization message, which already explains the completed change; no separate live announcement."
+  },
+  "imagePosition": {
+    "message": "image $INDEX$ of $TOTAL$",
+    "description": "Position of an image in the current post.",
+    "placeholders": {
+      "index": {
+        "content": "$1",
+        "example": "1"
+      },
+      "total": {
+        "content": "$2",
+        "example": "4"
+      }
+    }
+  },
+  "removeImageAccessibleLabel": {
+    "message": "Remove $POSITION$, $FILENAME$",
+    "description": "Accessible label for an image Remove button.",
+    "placeholders": {
+      "position": {
+        "content": "$1",
+        "example": "image 1 of 2"
+      },
+      "filename": {
+        "content": "$2",
+        "example": "diagram.png"
+      }
+    }
+  },
+  "removeImage": {
+    "message": "Remove image",
+    "description": "Tooltip for an image Remove button."
+  },
+  "altTextForImage": {
+    "message": "Alt text for $POSITION$, $FILENAME$",
+    "description": "Accessible label for an image alt-text field.",
+    "placeholders": {
+      "position": {
+        "content": "$1",
+        "example": "image 1 of 2"
+      },
+      "filename": {
+        "content": "$2",
+        "example": "diagram.png"
+      }
+    }
+  },
+  "characterMaximum": {
+    "message": "$MAXIMUM$ character maximum",
+    "description": "Accessible description of a text-field character maximum.",
+    "placeholders": {
+      "maximum": {
+        "content": "$1",
+        "example": "1000"
+      }
+    }
+  },
+  "altTextComplete": {
+    "message": "✓ Alt text complete",
+    "description": "Status shown when an image has alt text."
+  },
+  "altTextRequired": {
+    "message": "Alt text required",
+    "description": "Status shown when an image still needs alt text."
+  },
+  "couldNotOptimizeFile": {
+    "message": "Couldn't optimize $FILENAME$ below Bluesky's image limits.",
+    "description": "Error after image optimization cannot reach Bluesky's limits.",
+    "placeholders": {
+      "filename": {
+        "content": "$1",
+        "example": "diagram.png"
+      }
+    }
+  },
+  "sourcePngTooLarge": {
+    "message": "Can't process $FILENAME$: PNG source exceeds the 128 MB safety limit.",
+    "description": "Error before reading a PNG whose input file exceeds the source-memory budget. Large images within the budget may still be optimized.",
+    "placeholders": {
+      "filename": {
+        "content": "$1",
+        "example": "large.png"
+      }
+    }
+  },
+  "sourcePngDimensionsTooLarge": {
+    "message": "Can't process $FILENAME$: image exceeds 64 megapixels or 16,384 pixels on a side.",
+    "description": "Error before decoding a PNG whose IHDR dimensions exceed the decoded-image resource budget.",
+    "placeholders": {
+      "filename": {
+        "content": "$1",
+        "example": "huge.png"
+      }
+    }
+  },
+  "pleaseChoosePngFiles": {
+    "message": "Please choose PNG files.",
+    "description": "Error when a selected file is not PNG."
+  },
+  "notReadablePng": {
+    "message": "$FILENAME$ is not a readable PNG image.",
+    "description": "Error when a PNG cannot be decoded.",
+    "placeholders": {
+      "filename": {
+        "content": "$1",
+        "example": "diagram.png"
+      }
+    }
+  },
+  "optimizingFile": {
+    "message": "Optimizing $FILENAME$…",
+    "description": "Status while an oversized PNG is being optimized.",
+    "placeholders": {
+      "filename": {
+        "content": "$1",
+        "example": "diagram.png"
+      }
+    }
+  },
+  "couldNotAddPng": {
+    "message": "Couldn't add that PNG.",
+    "description": "Fallback error when adding a PNG fails."
+  },
+  "enterCredentials": {
+    "message": "Enter your Bluesky handle and app password.",
+    "description": "Error when sign-in fields are incomplete."
+  },
+  "signingIn": {
+    "message": "Signing in…",
+    "description": "Status while signing in."
+  },
+  "signInFailed": {
+    "message": "Sign in failed.",
+    "description": "Fallback sign-in error."
+  },
+  "signOutFailed": {
+    "message": "Sign out failed.",
+    "description": "Fallback sign-out error."
+  },
+  "uploadingImage": {
+    "message": "Uploading image $INDEX$ of $TOTAL$…",
+    "description": "Status while images are uploaded sequentially.",
+    "placeholders": {
+      "index": {
+        "content": "$1",
+        "example": "1"
+      },
+      "total": {
+        "content": "$2",
+        "example": "4"
+      }
+    }
+  },
+  "imageUploadFailed": {
+    "message": "Image upload failed.",
+    "description": "Fallback image-upload error."
+  },
+  "publishing": {
+    "message": "Publishing…",
+    "description": "Status while creating the Bluesky post."
+  },
+  "publicationOutcomeUncertain": {
+    "message": "Bluesky may have published this post, but the extension could not confirm it. Check your Bluesky profile before trying Post again. Your PNG draft is preserved.",
+    "description": "Caution when a createRecord request was sent but the post outcome cannot be established; no automatic retry."
+  },
+  "publishingFailed": {
+    "message": "Publishing failed.",
+    "description": "Fallback post-creation error."
+  },
+  "freshLaunchRecoveryFailedNotice": {
+    "message": "Transparent PNG Poster could not resume the new post after Bluesky sign-in. Use New transparent PNG post from the extension toolbar to try again.",
+    "description": "Page notice when a signed-out toolbar launch cannot resume after Bluesky login."
+  },
+  "toolbarLaunchWarningHeading": {
+    "message": "Transparent PNG Poster — Warning",
+    "description": "Heading of the keyboard-reachable notice after a failed toolbar new-post launch."
+  },
+  "toolbarLaunchInterruptedNotice": {
+    "message": "Transparent PNG Poster could not open a new post. If you are signed out of the Bluesky website, sign in on this tab, then use New transparent PNG post from the Firefox toolbar again. The extension sign-in does not sign you in to the website.",
+    "description": "Fallback alert on a toolbar-created Bluesky tab if its launch could not complete, including across sign-in redirects."
+  },
+  "freshLaunchFailedNotice": {
+    "message": "Transparent PNG Poster could not open Bluesky's composer. The extension sign-in is separate from the Bluesky website. If this tab is signed out of bsky.app, sign in here; the pending transparent-PNG post will resume automatically for up to five minutes.",
+    "description": "Page notice when the toolbar launch reaches a signed-out Bluesky page."
+  },
+  "blueskyDidNotOpenComposer": {
+    "message": "Bluesky did not open a new-post composer.",
+    "description": "Internal launch error returned when Bluesky does not open a composer."
+  },
+  "panelCouldNotOpen": {
+    "message": "The Transparent PNG panel could not be opened.",
+    "description": "Internal launch error returned when the extension panel cannot open."
+  },
+  "firefoxDidNotReturnNewTab": {
+    "message": "Firefox did not return the new Bluesky tab.",
+    "description": "Error when Firefox fails to return a newly created tab."
+  },
+  "newBlueskyTabNotReady": {
+    "message": "The new Bluesky tab did not become ready for the extension.",
+    "description": "Error when a newly created Bluesky tab never becomes ready for messaging."
+  },
+  "invalidRefreshedSession": {
+    "message": "Bluesky returned an invalid renewed session. Try again or sign in again.",
+    "description": "Shown when refreshSession returns incomplete credentials or a different account DID."
+  },
+  "notSignedInError": {
+    "message": "Not signed in.",
+    "description": "Error when a signed-in AT Protocol session is required."
+  },
+  "invalidCredentials": {
+    "message": "Check your Bluesky handle and app password, then try again.",
+    "description": "Actionable error for sign-in rejected with HTTP 401."
+  },
+  "signInRateLimited": {
+    "message": "Too many sign-in attempts. Wait a while before trying again.",
+    "description": "Error when Bluesky limits the frequency of sign-in requests (HTTP 429)."
+  },
+  "signInUnavailable": {
+    "message": "Bluesky sign-in is temporarily unavailable. Try again later.",
+    "description": "Error when Bluesky's sign-in service returns a server failure (HTTP 5xx)."
+  },
+  "signInConnectionFailed": {
+    "message": "Couldn't connect to Bluesky. Check your connection and try again.",
+    "description": "Error when Firefox could not reach Bluesky to sign in."
+  },
+  "invalidPngUploadPayload": {
+    "message": "The PNG upload payload is invalid.",
+    "description": "Error when the background uploader receives invalid PNG bytes."
+  },
+  "pngLargerThanBlueskyLimit": {
+    "message": "The PNG is larger than Bluesky's 2 MB image limit.",
+    "description": "Error when a PNG exceeds Bluesky's upload limit."
+  },
+  "invalidPostText": {
+    "message": "The post text is invalid.",
+    "description": "Error when post text is not a string."
+  },
+  "postTextLongerThanAllowed": {
+    "message": "The post text is longer than Bluesky allows.",
+    "description": "Backend validation error for post text over Bluesky's limits."
+  },
+  "invalidImageAttachment": {
+    "message": "The image attachment is invalid.",
+    "description": "Backend validation error for malformed image data."
+  },
+  "altTextLongerThanAllowed": {
+    "message": "Alt text must be 1,000 characters or fewer.",
+    "description": "Backend enforcement of the PNG composer 1,000-character Alt text limit."
+  },
+  "everyImageNeedsAltText": {
+    "message": "Every image needs alt text.",
+    "description": "Backend validation error when an image has no alt text."
+  },
+  "invalidImageDimensions": {
+    "message": "The image dimensions are invalid.",
+    "description": "Backend validation error for invalid image dimensions."
+  },
+  "postMustContainOneToFourImages": {
+    "message": "A post must contain between one and four images.",
+    "description": "Backend validation error for image count."
+  },
+  "invalidPostLanguages": {
+    "message": "The post language selection is invalid.",
+    "description": "Error shown if internally supplied post-language metadata is malformed."
+  },
+  "readBlueskyPage": {
+    "message": "Minimize composer",
+    "description": "Primary action of the split composer control. Minimizes the PNG composer while preserving its draft and allowing interaction with Bluesky."
+  },
+  "minimizeComposerHelp": {
+    "message": "Minimize to read and interact with Bluesky",
+    "description": "Native title tooltip explaining the Minimize composer action."
+  },
+  "returnToPngComposer": {
+    "message": "Return to PNG composer",
+    "description": "Floating page button to reopen the suspended PNG composer with its draft and attachments intact."
+  },
+  "nativeComposerBlockedByAnother": {
+    "message": "Another Bluesky composer is open. Minimize this PNG composer, save or close the other composer, then return and try Cancel again. Your PNG draft is preserved.",
+    "description": "Cancel cannot restore this PNG draft while another native Bluesky composer is visible; explains how to recover without overwriting another draft."
+  },
+  "nativeComposerRecoveryFailed": {
+    "message": "Couldn't restore your text to Bluesky. Your PNG draft is still here; you can try Cancel again or publish from this window.",
+    "description": "Shown when the original Bluesky composer was lost during page navigation and a fresh native composer cannot safely be restored."
+  },
+  "posted": {
+    "message": "Posted.",
+    "description": "Brief confirmation after a successful post; the current Bluesky page stays open."
+  },
+  "couldNotReadBlueskyPage": {
+    "message": "Couldn't close Bluesky's composer safely. Your PNG draft is still here.",
+    "description": "Shown if the experimental Read Bluesky page action cannot dismiss its owned native composer."
+  },
+  "moveComposer": {
+    "message": "Move composer",
+    "description": "Native disclosure that opens the optional nine-position placement picker."
+  },
+  "composerPositions": {
+    "message": "Composer positions",
+    "description": "Native group label for the nine move buttons."
+  },
+  "moveTopLeft": {
+    "message": "Move to top left",
+    "description": "Place the composer at the upper-left of the viewport."
+  },
+  "moveTopCenter": {
+    "message": "Move to top center",
+    "description": "Place the composer at the upper center of the viewport."
+  },
+  "moveTopRight": {
+    "message": "Move to top right",
+    "description": "Place the composer at the upper-right of the viewport."
+  },
+  "moveMiddleLeft": {
+    "message": "Move to middle left",
+    "description": "Place the composer at the center-left of the viewport."
+  },
+  "moveMiddleCenter": {
+    "message": "Move to center",
+    "description": "Center the composer in the available viewport."
+  },
+  "moveMiddleRight": {
+    "message": "Move to middle right",
+    "description": "Place the composer at center-right of the viewport."
+  },
+  "moveBottomLeft": {
+    "message": "Move to bottom left",
+    "description": "Place the composer at the lower-left of the viewport."
+  },
+  "moveBottomCenter": {
+    "message": "Move to bottom center",
+    "description": "Place the composer at the lower center of the viewport."
+  },
+  "moveBottomRight": {
+    "message": "Move to bottom right",
+    "description": "Place the composer at the lower-right of the viewport."
+  },
+  "postAnyway": {
+    "message": "Post anyway",
+    "description": "Explicit confirmation to publish when some @mentions cannot be linked; same native Post button."
+  },
+  "unresolvedMentionsWarning": {
+    "message": "Could not verify $HANDLES$. If you post anyway, these may appear as plain text without a clickable mention or notification. Correct the handle, or choose Post anyway.",
+    "description": "Shown before publishing when Bluesky mention handle lookups fail. No post has been created. Includes a comma-separated list of unresolved handles.",
+    "placeholders": {
+      "handles": {
+        "content": "$1",
+        "example": "@nonexistent.bsky.social"
+      }
+    }
+  },
+  "checkingMentions": {
+    "message": "Checking mentions…",
+    "description": "Brief progress announcement while looking up account handles before publishing."
+  },
+  "sessionExpiredSignInAgain": {
+    "message": "Your Bluesky session expired. Sign in again to continue.",
+    "description": "Shown when the saved session refresh token has been rejected by Bluesky."
+  },
+  "blueskyPageAccountUnavailable": {
+    "message": "Cannot verify the account signed into the Bluesky page. Sign in on bsky.app and try again; nothing was posted.",
+    "description": "Account identity could not be read from Bluesky's selected web session. Blocks publishing."
+  },
+  "blueskyAccountMismatch": {
+    "message": "Account mismatch: the Bluesky page uses $PAGE$, but the PNG composer is signed in as $EXTENSION$. Sign in to the same account in both before posting. Nothing was posted.",
+    "description": "The website and extension are signed into different DIDs. Two text-only display names; no tokens.",
+    "placeholders": {
+      "page": {
+        "content": "$1",
+        "example": "@alice.bsky.social"
+      },
+      "extension": {
+        "content": "$2",
+        "example": "@bob.bsky.social"
+      }
+    }
+  },
+  "blueskyAccountChangedWhilePosting": {
+    "message": "The PNG composer's signed-in account changed during posting. Nothing was posted; check your account and try again.",
+    "description": "The background publisher refuses a DID different from the account verified on the Bluesky page."
+  },
+  "checkingAccountsTitle": {
+    "message": "Checking accounts",
+    "description": "Displayed at the top while comparing the website and extension accounts."
+  },
+  "checkingAccountsDescription": {
+    "message": "Checking that Bluesky and the PNG composer are signed into the same account…",
+    "description": "Shown briefly before users edit a draft."
+  },
+  "accountsDoNotMatchTitle": {
+    "message": "Accounts don’t match",
+    "description": "Heading for the early account mismatch notice."
+  },
+  "accountsDoNotMatchDescription": {
+    "message": "Bluesky is using $PAGE$, but the PNG composer is signed in as $EXTENSION$. Switch the PNG account here, or return to Bluesky to switch its account. Restore this composer and check again. The draft stays here while minimized, but a page reload can discard it.",
+    "description": "Description above the editor of mismatched account DIDs.",
+    "placeholders": {
+      "page": {
+        "content": "$1",
+        "example": "@alice.bsky.social"
+      },
+      "extension": {
+        "content": "$2",
+        "example": "@bob.bsky.social"
+      }
+    }
+  },
+  "cannotVerifyBlueskyAccountTitle": {
+    "message": "Could not verify Bluesky account",
+    "description": "Heading when Bluesky page account cannot be confirmed."
+  },
+  "cannotVerifyBlueskyAccountDescription": {
+    "message": "The Bluesky page account could not be verified. Check that you are signed in on bsky.app, then choose Check again. Posting is disabled until the accounts can be confirmed.",
+    "description": "Displayed if web identity cannot be verified."
+  },
+  "switchPngAccount": {
+    "message": "Switch PNG account",
+    "description": "Opens a provisional sign-in form; keeps the current extension account signed in until replacement credentials are accepted."
+  },
+  "switchBlueskyAccount": {
+    "message": "Switch Bluesky account…",
+    "description": "Minimizes the PNG composer to reveal Bluesky's native account UI; does not switch accounts automatically."
+  },
+  "checkAccountsAgain": {
+    "message": "Check again",
+    "description": "Rechecks the current Bluesky website and PNG extension accounts."
+  },
+  "recheckAccountsInProgress": {
+    "message": "Checking accounts (check $ATTEMPT$)…",
+    "description": "Checking accounts after manual retry.",
+    "placeholders": {
+      "attempt": {
+        "content": "$1"
+      }
+    }
+  },
+  "recheckAccountsMatched": {
+    "message": "Check $ATTEMPT$ complete: accounts match. Posting is available.",
+    "description": "Confirmation after a manual account recheck succeeds.",
+    "placeholders": {
+      "attempt": {
+        "content": "$1"
+      }
+    }
+  },
+  "recheckAccountsStillDifferent": {
+    "message": "Check $ATTEMPT$ complete: accounts still do not match. Posting remains disabled.",
+    "description": "Confirmation after a manual account recheck detects the same mismatch.",
+    "placeholders": {
+      "attempt": {
+        "content": "$1"
+      }
+    }
+  },
+  "recheckAccountsUnavailable": {
+    "message": "Check $ATTEMPT$ complete: could not verify the Bluesky account. Posting remains disabled.",
+    "description": "Confirmation after a manual account recheck cannot verify website identity.",
+    "placeholders": {
+      "attempt": {
+        "content": "$1"
+      }
+    }
+  },
+  "accountSwitchHelp": {
+    "message": "Your current PNG account stays signed in until the new sign-in succeeds. Cancel to keep it.",
+    "description": "Explains that opening the switch-account form does not sign out the existing account."
+  },
+  "cancelAccountSwitch": {
+    "message": "Cancel account switch",
+    "description": "Closes the provisional login form without signing out or discarding the PNG draft."
+  },
+  "imagesAddedDetails_one": {
+    "message": "Added $FILENAME$. $DETAILS$ Alt text required.",
+    "description": "Single combined screen-reader confirmation when an attached image was optimized and may have a color warning; details precede the alt requirement.",
+    "placeholders": {
+      "filename": {
+        "content": "$1",
+        "example": "diagram.png"
+      },
+      "details": {
+        "content": "$2",
+        "example": "Optimized from 37.16 MB to 1.37 MB. Colors may have changed."
+      }
+    }
+  },
+  "imagesAddedDetails_other": {
+    "message": "Added $COUNT$ PNGs. $DETAILS$ Alt text required for each.",
+    "description": "Single combined screen-reader confirmation for multiple PNGs with optimization and possibly a color warning.",
+    "placeholders": {
+      "count": {
+        "content": "$1",
+        "example": "2"
+      },
+      "details": {
+        "content": "$2",
+        "example": "1 image resized and optimized. Colors may have changed."
+      }
+    }
+  },
+  "imageOptimizedSizeSpeech": {
+    "message": "Optimized from $ORIGINAL$ to $NEW$.",
+    "description": "Succinct file-size change included once in the image-added screen-reader announcement for a single optimized PNG.",
+    "placeholders": {
+      "original": {
+        "content": "$1",
+        "example": "37.16 MB"
+      },
+      "new": {
+        "content": "$2",
+        "example": "1.37 MB"
+      }
+    }
+  },
+  "imagesOptimized_one": {
+    "message": "1 image resized and optimized.",
+    "description": "Announces a single optimized image as part of a multiple-image attachment confirmation."
+  },
+  "imagesOptimized_other": {
+    "message": "$COUNT$ images resized and optimized.",
+    "description": "Announces an optimized image count as part of a multiple-image attachment confirmation.",
+    "placeholders": {
+      "count": {
+        "content": "$1",
+        "example": "2"
+      }
+    }
+  },
+  "moveComposerShort": {
+    "message": "Move",
+    "description": "Compact visible label for the native positioning disclosure next to the drag handle; accessible label remains Move composer."
+  },
+  "minimizeComposerShort": {
+    "message": "Minimize",
+    "description": "Compact visible label for the composer Minimize action; accessible label remains Minimize composer."
+  },
+  "moveImageUp": {
+    "message": "Move image up",
+    "description": "Tooltip for the up-arrow attachment ordering button."
+  },
+  "moveImageDown": {
+    "message": "Move image down",
+    "description": "Tooltip for the down-arrow attachment ordering button."
+  },
+  "moveImageUpAccessibleLabel": {
+    "message": "Move $POSITION$ up, $FILENAME$",
+    "description": "Full accessible name for an image Move up button, announcing its current ordinal position and filename.",
+    "placeholders": {
+      "position": {
+        "content": "$1",
+        "example": "image 2 of 4"
+      },
+      "filename": {
+        "content": "$2",
+        "example": "photo.png"
+      }
+    }
+  },
+  "moveImageDownAccessibleLabel": {
+    "message": "Move $POSITION$ down, $FILENAME$",
+    "description": "Full accessible name for an image Move down button, announcing its current ordinal position and filename.",
+    "placeholders": {
+      "position": {
+        "content": "$1",
+        "example": "image 2 of 4"
+      },
+      "filename": {
+        "content": "$2",
+        "example": "photo.png"
+      }
+    }
+  }
+}

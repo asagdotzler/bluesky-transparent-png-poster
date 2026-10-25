@@ -1,0 +1,82 @@
+{
+  "manifest_version": 3,
+  "name": "__MSG_extensionName__",
+  "version": "1.0.0",
+  "description": "__MSG_extensionDescription__",
+  "action": {
+    "default_title": "__MSG_actionTitle__",
+    "default_popup": "popup.html",
+    "default_icon": "icons/png-toolbar.svg"
+  },
+  "background": {
+    "scripts": [
+      "i18n.js",
+      "background.js"
+    ]
+  },
+  "content_scripts": [
+    {
+      "matches": [
+        "https://bsky.app/*"
+      ],
+      "css": [
+        "toolbar-transition.css"
+      ],
+      "js": [
+        "toolbar-transition.js"
+      ],
+      "run_at": "document_start",
+      "all_frames": false
+    },
+    {
+      "matches": [
+        "https://bsky.app/*"
+      ],
+      "js": [
+        "i18n.js",
+        "content.js"
+      ],
+      "run_at": "document_idle"
+    }
+  ],
+  "permissions": [
+    "storage",
+    "theme"
+  ],
+  "host_permissions": [
+    "https://bsky.app/*",
+    "https://bsky.social/*"
+  ],
+  "browser_specific_settings": {
+    "gecko": {
+      "id": "bluesky-transparent-png@asagdotzler.github.io",
+      "strict_min_version": "150.0",
+      "data_collection_permissions": {
+        "required": [
+          "authenticationInfo",
+          "personalCommunications"
+        ]
+      }
+    }
+  },
+  "web_accessible_resources": [
+    {
+      "resources": [
+        "i18n.js",
+        "panel.html",
+        "panel.css",
+        "panel.js",
+        "theme.js"
+      ],
+      "matches": [
+        "https://bsky.app/*"
+      ]
+    }
+  ],
+  "default_locale": "en",
+  "icons": {
+    "32": "icons/png.svg",
+    "64": "icons/png.svg",
+    "96": "icons/png.svg"
+  }
+}

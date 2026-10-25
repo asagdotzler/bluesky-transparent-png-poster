@@ -1,0 +1,968 @@
+:root {
+  color-scheme: light dark;
+
+  /* Ash-like neutral fallback. Firefox theme colors override these at runtime. */
+  --nova-text: light-dark(#2b2a2f, #f0eef2);
+  --nova-text-muted: color-mix(in srgb, var(--nova-text) 68%, transparent);
+  --nova-surface: light-dark(#f4f3f5, #252428);
+  --nova-surface-raised: light-dark(#ffffff, #313035);
+  --nova-surface-muted: light-dark(#e8e7ea, #3b3a3f);
+  --nova-field-surface: var(--nova-surface-raised);
+  --nova-field-text: var(--nova-text);
+  --nova-border: light-dark(#aaa8ad, #737177);
+  --nova-border-subtle: color-mix(in srgb, var(--nova-text) 12%, transparent);
+  --nova-button-hover: color-mix(in srgb, var(--nova-text) 12%, transparent);
+  --nova-button-active: color-mix(in srgb, var(--nova-text) 20%, transparent);
+
+  /* Nova uses the OS accent for non-default Firefox themes such as Ash. */
+  --nova-accent: AccentColor;
+  --nova-accent-hover: color-mix(in srgb, AccentColor 88%, CanvasText 12%);
+  --nova-accent-active: color-mix(in srgb, AccentColor 78%, CanvasText 22%);
+  --nova-accent-text: AccentColorText;
+  --nova-accent-foreground: color-mix(in srgb, var(--nova-accent) 60%, var(--nova-text) 40%);
+
+  --nova-success: light-dark(#007a59, #90e3c6);
+  --nova-error: light-dark(#c52d4f, #ffb6bf);
+  --nova-link: light-dark(#0060df, #c4a7ff);
+
+  --nova-radius-small: 6px;
+  --nova-radius-medium: 8px;
+  --nova-radius-large: 12px;
+  --nova-radius-xlarge: 12px;
+  --nova-radius-circle: 9999px;
+  --nova-control-height: 32px;
+  --nova-metadata-optical-inset: 8px;
+  --image-header-height: 24px;
+  --image-header-gap: 5px;
+
+  --nova-shadow-card:
+    0 0.25px 0.75px light-dark(rgba(0, 0, 0, 0.02), rgba(0, 0, 0, 0.06)),
+    0 2px 6px light-dark(rgba(0, 0, 0, 0.04), rgba(0, 0, 0, 0.12));
+}
+
+* {
+  box-sizing: border-box;
+}
+
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+/* Prevent Arrow/Page/wheel scrolling from chaining out of the PNG iframe
+   into the underlying Bluesky document at either scroll boundary. */
+html,
+body {
+  overscroll-behavior-y: contain;
+}
+
+body {
+  margin: 0;
+  padding: 12px;
+  overflow-y: auto;
+  background: var(--nova-surface);
+  color: var(--nova-text);
+  font: 14px system-ui, sans-serif;
+}
+
+button,
+input,
+textarea {
+  font: inherit;
+}
+
+input,
+textarea {
+  width: 100%;
+  min-height: 32px;
+  padding: 8px 10px;
+  border: 1px solid var(--nova-border);
+  border-radius: var(--nova-radius-small);
+  outline: 0;
+  background: var(--nova-field-surface);
+  color: var(--nova-field-text);
+  transition:
+    border-color 120ms ease,
+    box-shadow 120ms ease;
+}
+
+input:focus,
+textarea:focus {
+  border-color: var(--nova-accent);
+  box-shadow: 0 0 0 2px color-mix(in srgb, var(--nova-accent) 30%, transparent);
+}
+
+textarea {
+  min-height: 92px;
+  resize: vertical;
+  display: block;
+}
+
+button {
+  height: auto;
+  min-height: var(--nova-control-height);
+  min-width: 0;
+  padding: 7px 16px;
+  border: 0;
+  border-radius: var(--nova-radius-xlarge);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  font-weight: 600;
+  line-height: 1.25;
+  text-align: center;
+  white-space: normal;
+  overflow-wrap: anywhere;
+  transition:
+    background-color 120ms ease,
+    color 120ms ease,
+    box-shadow 120ms ease;
+}
+
+/* Let Gecko draw the native focus outline; move it outside the styled
+   control surface so its strokes remain distinguishable in every theme.
+   The real file input owns focus; only its associated visual label is painted. */
+button:focus-visible,
+.composer-position-picker summary:focus-visible,
+.add-image-input:focus-visible + .add-image-button {
+  outline: auto;
+  outline-offset: 3px;
+}
+
+/* Keep Move/Minimize outlines aligned at the shorter height, and preserve
+   0px offsets in compact button grids where neighboring rings could overlap. */
+.composer-position-picker summary:focus-visible,
+.page-reference-actions .position-choice:focus-visible,
+.image-reorder-controls .move-image:focus-visible {
+  outline-offset: 0;
+}
+
+button:disabled {
+  opacity: 0.5;
+  cursor: default;
+}
+
+.primary {
+  background: var(--nova-accent);
+  color: var(--nova-accent-text);
+}
+
+.primary:not(:disabled):hover {
+  background: var(--nova-accent-hover);
+}
+
+.primary:not(:disabled):active {
+  background: var(--nova-accent-active);
+}
+
+.secondary {
+  background: var(--nova-surface-muted);
+  color: var(--nova-text);
+}
+
+.secondary:not(:disabled):hover {
+  background: var(--nova-button-hover);
+}
+
+.secondary:not(:disabled):active {
+  background: var(--nova-button-active);
+}
+
+.panel-header {
+  margin-bottom: 6px;
+}
+
+/* Lightweight window utilities sit directly below the draggable title.
+   Move (native details) and Minimize (native button) have separate affordances.
+   The group is not a toolbar: standard Tab and disclosure behavior apply. */
+.page-reference-actions {
+  display: flex;
+  justify-content: center;
+  margin-block: 0;
+}
+
+.composer-window-tools {
+  --position-row-height: 36px;
+  --position-gap: 4px;
+  display: flex;
+  position: relative;
+  flex-wrap: wrap;
+  gap: 8px;
+  align-items: flex-start;
+  justify-content: center;
+  max-width: 100%;
+}
+
+/* When expanded, reserve three native-button rows in normal flow, so the
+   picker cannot cover the post editor even when composer height changes. */
+.composer-window-tools:has(.composer-position-picker[open]) {
+  margin-bottom: calc(3 * var(--position-row-height) + 2 * var(--position-gap) + 16px);
+}
+
+.page-reference-actions #readPageButton {
+  min-height: 28px;
+  padding: 3px 9px;
+  font-size: 11.5px;
+  font-weight: 500;
+  border: 1px solid transparent;
+  border-radius: var(--nova-radius-small);
+  color: var(--nova-text-muted);
+  background: transparent;
+}
+
+.page-reference-actions #readPageButton:not(:disabled):hover {
+  background: var(--nova-button-hover);
+}
+
+/* Restore deliberately focuses Minimize after pointer or keyboard activation.
+   Preserve Gecko's native outline regardless of :focus-visible modality. */
+#readPageButton:focus {
+  outline: auto;
+  outline-offset: 0;
+}
+
+.composer-position-picker {
+  flex: 0 0 auto;
+  min-width: 0;
+}
+
+.composer-position-picker summary {
+  /* Match Minimize button text metrics without constraining text scaling. */
+  line-height: 1.25;
+  box-sizing: border-box;
+  display: inline-flex;
+  gap: 3px;
+  min-height: 28px;
+  padding: 3px 9px;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid transparent;
+  border-radius: var(--nova-radius-small);
+  color: var(--nova-text-muted);
+  background: transparent;
+  font-size: 11.5px;
+  font-weight: 500;
+  cursor: pointer;
+  list-style: none;
+}
+
+.composer-position-picker summary::marker {
+  content: "";
+}
+
+.composer-position-picker summary::-webkit-details-marker {
+  display: none;
+}
+
+
+.composer-position-picker summary:hover,
+.composer-position-picker[open] summary {
+  background: var(--nova-button-hover);
+}
+
+.composer-position-grid {
+  display: grid;
+  position: absolute;
+  top: calc(100% + var(--position-gap));
+  left: 50%;
+  transform: translateX(-50%);
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: var(--position-gap);
+  width: min(180px, calc(100vw - 40px));
+  padding: 4px;
+  background: var(--nova-surface-raised);
+  border: 1px solid var(--nova-border);
+  border-radius: var(--nova-radius-small);
+  z-index: 1;
+}
+
+/* Preserve the generous minimum target size of all nine native buttons. */
+.page-reference-actions .position-choice {
+  display: flex;
+  width: 100%;
+  height: var(--position-row-height);
+  min-height: var(--position-row-height);
+  padding: 5px;
+  align-items: center;
+  justify-content: center;
+  background: var(--nova-surface-muted);
+  border: 1px solid var(--nova-border);
+  border-radius: var(--nova-radius-small);
+}
+
+.position-choice:not(:disabled):hover {
+  background: var(--nova-button-hover);
+}
+
+.position-marker {
+  width: 14px;
+  height: 10px;
+  border: 2px solid currentColor;
+  border-radius: 2px;
+  flex: none;
+}
+
+.position-choice[data-horizontal="left"] { justify-content: flex-start; }
+.position-choice[data-horizontal="right"] { justify-content: flex-end; }
+.position-choice[data-vertical="top"] { align-items: flex-start; }
+.position-choice[data-vertical="bottom"] { align-items: flex-end; }
+
+.composer-actions {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 2fr) minmax(0, 1fr);
+  align-items: center;
+  min-height: 44px;
+  column-gap: 12px;
+  row-gap: 6px;
+}
+
+#cancelButton {
+  justify-self: start;
+  max-width: 100%;
+  padding-inline-start: 0;
+}
+
+.post-button {
+  justify-self: end;
+  max-width: 100%;
+}
+
+.text-action {
+  padding: 0 4px;
+  border-radius: var(--nova-radius-small);
+  background: transparent;
+  color: var(--nova-accent-foreground);
+}
+
+.text-action:not(:disabled):hover {
+  background: var(--nova-button-hover);
+}
+
+.text-action:not(:disabled):active {
+  background: var(--nova-button-active);
+}
+
+.panel-identity {
+  min-width: 0;
+  text-align: center;
+}
+
+/* Experimental drag handle. No new focusable element or semantic role. */
+.panel-identity {
+  cursor: grab;
+  user-select: none;
+  touch-action: none;
+}
+
+/* Decorative six-dot grip: hints that the existing title/status area moves.
+   The handle remains non-focusable; this experiment adds no a11y claim. */
+.panel-identity::before {
+  content: "";
+  display: block;
+  width: 18px;
+  height: 10px;
+  margin: 0 auto 2px;
+  background-image: radial-gradient(circle, currentColor 1px, transparent 1.5px);
+  background-size: 6px 5px;
+  opacity: 0.55;
+  pointer-events: none;
+}
+
+@media (forced-colors: active) {
+  .panel-identity::before {
+    color: CanvasText;
+    opacity: 1;
+  }
+}
+
+.panel-identity:active {
+  cursor: grabbing;
+}
+
+.panel-title {
+  margin: 0; /* Reset the native heading default; retain the draggable header geometry. */
+  font-size: 16px;
+  font-weight: 700;
+  line-height: 1.2;
+  overflow-wrap: anywhere;
+}
+
+.account-status {
+  font-size: 12px;
+  line-height: 1.3;
+  overflow-wrap: anywhere;
+  color: var(--nova-text-muted);
+}
+
+.account-status.success {
+  color: var(--nova-success);
+}
+
+/* The pre-composition account guard belongs above the editing surface. */
+.account-notice {
+  margin: 10px 0 12px;
+  padding: 12px;
+  border: 1px solid var(--nova-error);
+  border-radius: var(--nova-radius-medium);
+  background: var(--nova-surface-raised);
+}
+.account-notice.pending { border-color: var(--nova-border); }
+.account-notice[hidden], .account-notice-actions button[hidden] { display: none; }
+.account-notice-title {
+  font-size: 14px;
+  font-weight: 700;
+  margin: 0 0 6px;
+}
+.account-notice p { margin: 0 0 10px; line-height: 1.45; overflow-wrap: anywhere; }
+.account-notice-actions { display: flex; flex-wrap: wrap; gap: 8px; }
+.account-notice-actions button { min-height: 32px; }
+.account-recheck-feedback {
+  display: block;
+  margin: 0 0 10px;
+  font-size: 12px;
+  line-height: 1.4;
+  color: var(--nova-text-muted);
+}
+.account-recheck-feedback:empty { margin: 0; }
+
+/* Give the temporary signed-out controls their own breathing room.
+   When the section is hidden, it contributes no layout space. */
+#signInSection {
+  margin-block: 18px 20px;
+}
+
+.login-row {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr) minmax(0, auto);
+  gap: 8px;
+}
+
+.login-row input {
+  min-width: 0;
+}
+
+.account-switch-cancel-row { margin-top: 8px; }
+#cancelAccountSwitchButton[hidden] { display: none; }
+
+.login-help {
+  margin: 6px 0 0;
+  font-size: 12px;
+  line-height: 1.35;
+  overflow-wrap: anywhere;
+  color: var(--nova-text-muted);
+}
+
+.login-help a {
+  color: var(--nova-link);
+  text-underline-offset: 2px;
+}
+
+.login-help a:focus-visible {
+  outline: auto;
+  outline-offset: 0;
+  border-radius: 2px;
+}
+
+@media (forced-colors: active) {
+  .login-help a {
+    color: LinkText;
+  }
+}
+
+.compose-section {
+  display: grid;
+  gap: 5px;
+  margin: 10px 0 16px;
+}
+
+.compose-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  gap: 10px;
+}
+
+.compose-title {
+  min-width: 0;
+  font-size: 13px;
+  overflow-wrap: anywhere;
+}
+
+.compose-count {
+  margin-inline-end: var(--nova-metadata-optical-inset);
+  font-size: 12px;
+  color: var(--nova-text-muted);
+}
+
+.compose-count.over-limit {
+  color: var(--nova-error);
+}
+
+.post-text {
+  min-height: 64px;
+}
+
+.alt-text {
+  min-height: 120px;
+}
+
+.note {
+  font-size: 12px;
+  line-height: 1.35;
+  overflow-wrap: anywhere;
+  color: var(--nova-text-muted);
+}
+
+.images {
+  display: grid;
+  gap: 10px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.image-card {
+  display: grid;
+  grid-template-columns: 120px minmax(0, 1fr);
+  grid-template-areas:
+    "header header"
+    "preview meta"
+    "footer footer";
+  gap: 10px;
+  padding: 8px;
+  border: 1px solid var(--nova-border-subtle);
+  border-radius: var(--nova-radius-large);
+  background: var(--nova-surface-raised);
+  box-shadow: var(--nova-shadow-card);
+}
+
+.image-visual {
+  grid-area: preview;
+  min-width: 0;
+}
+
+.image-preview {
+  width: 120px;
+  height: 120px;
+  display: grid;
+  place-items: center;
+  overflow: hidden;
+  border-radius: var(--nova-radius-medium);
+  background-color: #fff;
+  background-image:
+    linear-gradient(45deg, #ddd 25%, transparent 25%),
+    linear-gradient(-45deg, #ddd 25%, transparent 25%),
+    linear-gradient(45deg, transparent 75%, #ddd 75%),
+    linear-gradient(-45deg, transparent 75%, #ddd 75%);
+  background-size: 16px 16px;
+  background-position: 0 0, 0 8px, 8px -8px, -8px 0;
+}
+
+.image-preview img {
+  max-width: 100%;
+  max-height: 100%;
+  object-fit: contain;
+}
+
+/* Image status spans the card; the note should never wrap at thumbnail width. */
+.image-footer {
+  grid-area: footer;
+  min-width: 0;
+  display: grid;
+  gap: 5px;
+}
+
+.image-status-row {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  align-items: baseline;
+  column-gap: 12px;
+  row-gap: 4px;
+}
+
+/* Keep the visible Alt-text status above the color note while the DOM reads
+   size / optimization, color note, then Alt-text status. */
+.image-color-note {
+  order: 2;
+  flex: 0 0 100%;
+  display: flex;
+  align-items: flex-start;
+  gap: 6px;
+  margin: 0;
+  margin-top: 1px;
+  color: var(--nova-text-muted);
+  font-size: 11px;
+  line-height: 1.4;
+  overflow-wrap: anywhere;
+}
+
+.image-color-note svg {
+  flex: none;
+  width: 14px;
+  height: 14px;
+}
+
+.image-meta {
+  grid-area: meta;
+  min-width: 0;
+}
+
+.image-header {
+  grid-area: header;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  min-height: 28px;
+  margin-bottom: var(--image-header-gap);
+}
+
+.image-name-slot {
+  margin: 0;
+  min-width: 0;
+  flex: 1;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  font-size: 12px;
+  font-weight: 600;
+  line-height: var(--image-header-height);
+  text-align: start;
+}
+
+.image-name {
+  unicode-bidi: isolate;
+}
+
+.image-reorder-controls {
+  display: inline-flex;
+  gap: 0;
+  flex: none;
+  border: 1px solid var(--nova-border-subtle);
+  border-radius: var(--nova-radius-circle);
+  background: var(--nova-surface-muted);
+}
+
+.secondary.move-image {
+  flex: 0 0 28px;
+  width: 28px;
+  min-width: 28px;
+  min-height: 28px;
+  height: 28px;
+  padding: 0;
+  border-radius: 0;
+  background: transparent;
+  font-size: 17px;
+  font-weight: 600;
+  line-height: 1;
+}
+
+.secondary.move-image:first-child {
+  border-start-start-radius: var(--nova-radius-circle);
+  border-end-start-radius: var(--nova-radius-circle);
+}
+
+.secondary.move-image:last-child {
+  border-start-end-radius: var(--nova-radius-circle);
+  border-end-end-radius: var(--nova-radius-circle);
+  border-inline-start: 1px solid var(--nova-border-subtle);
+}
+
+.secondary.remove-image {
+  position: relative;
+  flex: 0 0 28px;
+  width: 28px;
+  min-width: 28px;
+  height: 28px;
+  min-height: 28px;
+  padding: 0;
+  border-radius: var(--nova-radius-circle);
+  background: transparent;
+  color: var(--nova-text-muted);
+  font-size: 0;
+  line-height: 1;
+}
+
+.secondary.remove-image::before,
+.secondary.remove-image::after {
+  content: "";
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  width: 12px;
+  height: 2px;
+  border-radius: 1px;
+  background: currentColor;
+  transform-origin: center;
+}
+
+.secondary.remove-image::before {
+  transform: translate(-50%, -50%) rotate(45deg);
+}
+
+.secondary.remove-image::after {
+  transform: translate(-50%, -50%) rotate(-45deg);
+}
+
+.secondary.remove-image:not(:disabled):hover {
+  background: var(--nova-button-hover);
+  color: var(--nova-text);
+}
+
+.secondary.remove-image:not(:disabled):active {
+  background: var(--nova-button-active);
+  color: var(--nova-text);
+}
+
+.image-size,
+.alt-details {
+  margin-top: 2px;
+  font-size: 11px;
+  color: var(--nova-text-muted);
+}
+
+.image-count {
+  white-space: nowrap;
+}
+
+.image-size {
+  min-width: 0;
+  overflow-wrap: anywhere;
+  text-align: start;
+}
+
+.alt-details {
+  order: 1;
+  margin-inline-start: auto;
+  padding-inline-end: var(--nova-metadata-optical-inset);
+  text-align: end;
+}
+
+.alt-complete {
+  color: var(--nova-success);
+}
+
+.alt-missing {
+  color: var(--nova-error);
+}
+
+.image-actions {
+  display: grid;
+  grid-template-columns: auto auto minmax(0, 1fr);
+  gap: 8px;
+  align-items: center;
+  min-height: var(--nova-control-height);
+  margin-top: 10px;
+}
+
+.add-image-input {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  min-height: 0;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  clip-path: inset(50%);
+  white-space: nowrap;
+  border: 0;
+}
+
+.add-image-button {
+  position: relative;
+  flex: 0 0 var(--nova-control-height);
+  width: var(--nova-control-height);
+  min-width: var(--nova-control-height);
+  height: var(--nova-control-height);
+  min-height: var(--nova-control-height);
+  padding: 0;
+  border-radius: var(--nova-radius-circle);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  background: transparent;
+  color: var(--nova-accent-foreground);
+  transition:
+    background-color 120ms ease,
+    color 120ms ease,
+    box-shadow 120ms ease;
+}
+
+
+.add-image-input:disabled + .add-image-button {
+  opacity: 0.5;
+  cursor: default;
+}
+
+.add-image-button::before,
+.add-image-button::after {
+  content: "";
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  width: 14px;
+  height: 2px;
+  border-radius: 1px;
+  background: currentColor;
+  transform: translate(-50%, -50%);
+}
+
+.add-image-button::after {
+  transform: translate(-50%, -50%) rotate(90deg);
+}
+
+.add-image-input:not(:disabled) + .add-image-button:hover {
+  background: var(--nova-button-hover);
+}
+
+.add-image-input:not(:disabled) + .add-image-button:active {
+  background: var(--nova-button-active);
+}
+
+.add-png-hint {
+  min-width: 0;
+  white-space: normal;
+  overflow-wrap: anywhere;
+}
+
+.activity {
+  height: 4px;
+  margin-top: 9px;
+  overflow: hidden;
+  border-radius: var(--nova-radius-circle);
+  background: color-mix(in srgb, var(--nova-text) 14%, transparent);
+}
+
+.activity[hidden] {
+  display: none;
+}
+
+.activity-bar {
+  width: 35%;
+  height: 100%;
+  border-radius: inherit;
+  background: var(--nova-accent);
+  animation: transparent-png-progress 1s ease-in-out infinite;
+}
+
+@keyframes transparent-png-progress {
+  0% {
+    transform: translateX(-120%);
+  }
+
+  100% {
+    transform: translateX(360%);
+  }
+}
+
+.status {
+  margin-top: 6px;
+  font-size: 12px;
+  line-height: 1.35;
+  overflow-wrap: anywhere;
+}
+
+.status:empty {
+  display: none;
+}
+
+.status.success {
+  color: var(--nova-success);
+}
+
+.status.error {
+  color: var(--nova-error);
+}
+
+@media (forced-colors: active) {
+  :root {
+    --nova-text: CanvasText;
+    --nova-text-muted: CanvasText;
+    --nova-surface: Canvas;
+    --nova-surface-raised: Canvas;
+    --nova-surface-muted: ButtonFace;
+    --nova-field-surface: Field;
+    --nova-field-text: FieldText;
+    --nova-border: ButtonText;
+    --nova-border-subtle: ButtonText;
+    --nova-accent: Highlight;
+    --nova-accent-hover: Highlight;
+    --nova-accent-active: Highlight;
+    --nova-accent-text: HighlightText;
+    --nova-accent-foreground: Highlight;
+    --nova-button-hover: ButtonFace;
+    --nova-button-active: ButtonFace;
+  }
+
+  .image-card {
+    box-shadow: none;
+  }
+}
+
+@media (max-width: 560px) {
+  .composer-actions {
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+    grid-template-areas:
+      "identity identity"
+      "cancel post";
+  }
+
+  #cancelButton {
+    grid-area: cancel;
+  }
+
+  .panel-identity {
+    grid-area: identity;
+  }
+
+  .post-button {
+    grid-area: post;
+  }
+}
+
+@media (max-width: 500px) {
+  .login-row {
+    grid-template-columns: 1fr;
+  }
+
+  .image-card {
+    grid-template-columns: 88px minmax(0, 1fr);
+    grid-template-areas:
+      "header header"
+      "preview meta"
+      "footer footer";
+  }
+
+  .image-preview {
+    width: 88px;
+    height: 88px;
+  }
+
+  .image-actions {
+    grid-template-columns: auto auto minmax(0, 1fr);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  input,
+  textarea,
+  button,
+  .add-image-button {
+    transition: none;
+  }
+
+  .activity {
+    display: none !important;
+  }
+}
+

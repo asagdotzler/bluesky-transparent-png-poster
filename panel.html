@@ -1,0 +1,131 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title data-i18n="panelDocumentTitle">Transparent PNGs</title>
+  <link rel="stylesheet" href="panel.css?v=1.0.0">
+</head>
+<body>
+  <div class="panel-header">
+    <div class="composer-actions">
+      <button id="cancelButton" class="text-action" type="button" data-i18n="cancel">Cancel</button>
+      <div id="dragHandle" class="panel-identity">
+        <h1 class="panel-title" data-i18n="panelTitle">Add transparent PNGs</h1>
+        <div id="accountStatus" class="account-status" data-i18n="notSignedIn">Not signed in</div>
+      </div>
+      <button id="postButton" class="primary post-button" data-i18n="post" disabled>Post</button>
+    </div>
+    <div class="page-reference-actions">
+      <!-- Compact companion controls beneath the draggable title/status.
+           Use native disclosure and button semantics; no ARIA toolbar model. -->
+      <div class="composer-window-tools">
+        <details id="moveComposerPicker" class="composer-position-picker">
+          <summary aria-label="Move composer" data-i18n-aria-label="moveComposer" title="Move composer" data-i18n-title="moveComposer">
+            <span data-i18n="moveComposerShort">Move</span>
+            <svg viewBox="0 0 24 24" width="14" height="14" aria-hidden="true" focusable="false"><path d="m6 9 6 6 6-6" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </summary>
+          <div class="composer-position-grid" role="group" aria-label="Composer positions" data-i18n-aria-label="composerPositions">
+          <button type="button" class="position-choice" data-horizontal="left" data-vertical="top" aria-label="Move to top left" data-i18n-aria-label="moveTopLeft"><span class="position-marker" aria-hidden="true"></span></button>
+          <button type="button" class="position-choice" data-horizontal="center" data-vertical="top" aria-label="Move to top center" data-i18n-aria-label="moveTopCenter"><span class="position-marker" aria-hidden="true"></span></button>
+          <button type="button" class="position-choice" data-horizontal="right" data-vertical="top" aria-label="Move to top right" data-i18n-aria-label="moveTopRight"><span class="position-marker" aria-hidden="true"></span></button>
+          <button type="button" class="position-choice" data-horizontal="left" data-vertical="middle" aria-label="Move to middle left" data-i18n-aria-label="moveMiddleLeft"><span class="position-marker" aria-hidden="true"></span></button>
+          <button type="button" class="position-choice" data-horizontal="center" data-vertical="middle" aria-label="Move to center" data-i18n-aria-label="moveMiddleCenter"><span class="position-marker" aria-hidden="true"></span></button>
+          <button type="button" class="position-choice" data-horizontal="right" data-vertical="middle" aria-label="Move to middle right" data-i18n-aria-label="moveMiddleRight"><span class="position-marker" aria-hidden="true"></span></button>
+          <button type="button" class="position-choice" data-horizontal="left" data-vertical="bottom" aria-label="Move to bottom left" data-i18n-aria-label="moveBottomLeft"><span class="position-marker" aria-hidden="true"></span></button>
+          <button type="button" class="position-choice" data-horizontal="center" data-vertical="bottom" aria-label="Move to bottom center" data-i18n-aria-label="moveBottomCenter"><span class="position-marker" aria-hidden="true"></span></button>
+          <button type="button" class="position-choice" data-horizontal="right" data-vertical="bottom" aria-label="Move to bottom right" data-i18n-aria-label="moveBottomRight"><span class="position-marker" aria-hidden="true"></span></button>
+          </div>
+        </details>
+        <button id="readPageButton" type="button" class="text-action" data-i18n="minimizeComposerShort" aria-label="Minimize composer" data-i18n-aria-label="readBlueskyPage" title="Minimize to read and interact with Bluesky" data-i18n-title="minimizeComposerHelp">Minimize</button>
+      </div>
+    </div>
+  </div>
+
+  <section id="accountNotice" class="account-notice" aria-labelledby="accountNoticeTitle" hidden>
+    <h2 id="accountNoticeTitle" class="account-notice-title"></h2>
+    <p id="accountNoticeText" role="status" aria-atomic="true"></p>
+    <div class="account-notice-actions">
+      <button id="switchPngAccountButton" class="secondary" type="button" data-i18n="switchPngAccount">Switch PNG account</button>
+      <button id="switchBlueskyAccountButton" class="secondary" type="button" data-i18n="switchBlueskyAccount">Switch Bluesky account…</button>
+      <button id="recheckAccountButton" class="secondary" type="button" data-i18n="checkAccountsAgain">Check again</button>
+    </div>
+  </section>
+  <output id="accountRecheckFeedback" class="account-recheck-feedback" aria-atomic="true"></output>
+
+  <section id="signInSection">
+    <p id="accountSwitchHelp" class="login-help" data-i18n="accountSwitchHelp" hidden>Your current PNG account stays signed in until the new sign-in succeeds. Cancel to keep it.</p>
+    <form id="signInForm">
+      <div class="login-row">
+        <label class="sr-only" for="handleInput" data-i18n="blueskyHandle">Bluesky handle</label>
+        <input id="handleInput" dir="ltr" autocomplete="username" placeholder="Bluesky handle" data-i18n-placeholder="blueskyHandle">
+        <label class="sr-only" for="passwordInput" data-i18n="blueskyAppPassword">Bluesky app password</label>
+        <input id="passwordInput" dir="ltr" type="password" autocomplete="off" placeholder="Bluesky app password" data-i18n-placeholder="blueskyAppPassword">
+        <button id="signInButton" class="primary" type="submit" data-i18n="signIn">Sign in</button>
+      </div>
+      <div class="account-switch-cancel-row">
+        <button id="cancelAccountSwitchButton" class="secondary" type="button" data-i18n="cancelAccountSwitch" hidden>Cancel account switch</button>
+      </div>
+    </form>
+    <p class="login-help" data-i18n-link="appPasswordHelp">Use a Bluesky app password, not your account password. <a href="https://bsky.app/settings/app-passwords" target="_blank" rel="noopener noreferrer" data-i18n="createAppPassword">Create an app password</a>.</p>
+  </section>
+
+  <section class="compose-section">
+    <div class="compose-header">
+      <label class="compose-title" for="postTextInput" data-i18n="postText">Post text</label>
+      <div
+        id="postTextCount"
+        class="compose-count"
+        role="progressbar"
+        aria-label="Post length"
+        data-i18n-aria-label="postLength"
+        aria-valuemin="0"
+        aria-valuemax="100"
+        aria-valuenow="0"
+      >0/300</div>
+    </div>
+    <textarea
+      id="postTextInput"
+      class="post-text"
+      dir="auto"
+      aria-describedby="postTextLimitDescription"
+      placeholder="Write or edit post text (optional)."
+      data-i18n-placeholder="postTextPlaceholder"
+    ></textarea>
+    <span id="postTextLimitDescription" class="sr-only" data-i18n="postCharacterMaximum">300 character maximum.</span>
+  </section>
+
+  <ol id="imageList" class="images"></ol>
+
+  <div class="image-actions">
+    <input
+      id="fileInput"
+      class="add-image-input"
+      type="file"
+      accept="image/png,.png"
+      multiple
+      aria-label="Add PNG"
+      data-i18n-aria-label="addPng"
+    >
+    <!-- The styled label is only the visual/pointer target. The native file
+         input alone is exposed to screen readers so Browse Mode does not
+         announce a second, misleading clickable Add PNG control. -->
+    <label class="add-image-button" for="fileInput" aria-hidden="true" title="Add PNG" data-i18n-title="addPng">
+      <span class="sr-only" data-i18n="addPng">Add PNG</span>
+    </label>
+    <span id="imageCount" class="image-count"></span>
+    <span id="addPngHint" class="note add-png-hint" data-i18n="addPngHint">Paste PNGs, drop them anywhere in this dialog, or choose Add PNG.</span>
+  </div>
+
+  <div id="activityIndicator" class="activity" hidden aria-hidden="true">
+    <div class="activity-bar"></div>
+  </div>
+
+  <div id="statusMessage" class="status" aria-live="polite"></div>
+  <output id="imageAnnouncement" class="sr-only"></output>
+
+  <script src="i18n.js"></script>
+  <script src="theme.js"></script>
+  <script src="panel.js"></script>
+</body>
+</html>

@@ -1,0 +1,62 @@
+/* Toolbar-launched compose intent only. Do not remove, relocate, or inert
+   Bluesky's native composer: it must remain measurable, eligible and focusable
+   until the extension iframe has acknowledged initial focus. */
+html[data-tpng-toolbar-transition] [role="dialog"]:has([data-testid="composerPublishBtn"]) {
+  opacity: 0 !important;
+}
+
+/* Both toolbar-failure paths share this visual treatment. Keep the warning in
+   normal accessibility semantics (role=alert), without a modal or focus trap.
+   No change to the native-composer masking rule above. */
+#bsky-tpng-launch-error {
+  position: fixed !important;
+  z-index: 2147483647 !important;
+  top: 50% !important;
+  left: 50% !important;
+  transform: translate(-50%, -50%) !important;
+  box-sizing: border-box;
+  width: min(600px, calc(100vw - 32px));
+  max-height: calc(100dvh - 32px);
+  overflow-y: auto;
+  overflow-wrap: anywhere;
+  padding: 16px 18px;
+  border: 2px solid #b4232c;
+  border-radius: 12px;
+  background: #fff1f0;
+  color: #701b24;
+  box-shadow: 0 12px 36px rgba(0, 0, 0, 0.35);
+  font: 500 15px/1.5 system-ui, sans-serif;
+}
+
+@media (prefers-color-scheme: dark) {
+  #bsky-tpng-launch-error {
+    border-color: #ff8078;
+    background: #47252a;
+    color: #fff0ec;
+  }
+}
+
+@media (forced-colors: active) {
+  #bsky-tpng-launch-error {
+    border-color: Highlight;
+    background: Canvas;
+    color: CanvasText;
+    box-shadow: none;
+  }
+}
+
+/* The alert remains in the normal tab sequence after its initial focus.
+   Preserve a clear focus indicator in keyboard and forced-colors modes. */
+#bsky-tpng-launch-error:focus {
+  outline: 2px solid currentColor;
+  outline-offset: 2px;
+}
+
+#bsky-tpng-launch-error h2 {
+  margin: 0 0 8px;
+  font: 700 1em/1.35 system-ui, sans-serif;
+}
+
+#bsky-tpng-launch-error p {
+  margin: 0;
+}

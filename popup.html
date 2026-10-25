@@ -1,0 +1,292 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title data-i18n="popupDocumentTitle">Transparent PNG</title>
+  <style>
+    :root {
+      color-scheme: light dark;
+      --nova-text: light-dark(#2b2a2f, #f0eef2);
+      --nova-surface: light-dark(#f4f3f5, #252428);
+      --nova-field-surface: light-dark(#ffffff, #313035);
+      --nova-field-text: var(--nova-text);
+      --nova-border: light-dark(#aaa8ad, #737177);
+      --nova-success: light-dark(#007a59, #90e3c6);
+      --nova-error: light-dark(#c52d4f, #ffb6bf);
+      --nova-link: light-dark(#0060df, #c4a7ff);
+      --nova-accent: AccentColor;
+      --nova-accent-hover: color-mix(in srgb, AccentColor 88%, CanvasText 12%);
+      --nova-accent-active: color-mix(in srgb, AccentColor 78%, CanvasText 22%);
+      --nova-accent-text: AccentColorText;
+      --nova-muted: color-mix(in srgb, var(--nova-text) 68%, transparent);
+      --nova-control-height: 32px;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    [hidden] {
+      display: none !important;
+    }
+
+    .sr-only {
+      position: absolute;
+      width: 1px;
+      height: 1px;
+      padding: 0;
+      margin: -1px;
+      overflow: hidden;
+      clip: rect(0, 0, 0, 0);
+      white-space: nowrap;
+      border: 0;
+    }
+
+    body {
+      width: 264px;
+      margin: 0;
+      padding: 16px;
+      background: var(--nova-surface);
+      color: var(--nova-text);
+      font: 14px system-ui, sans-serif;
+    }
+
+    h1 {
+      margin: 0 0 8px;
+      font-size: 16px;
+      line-height: 1.25;
+      font-weight: 700;
+      text-align: center;
+      overflow-wrap: anywhere;
+    }
+
+    .login-form {
+      display: grid;
+      gap: 10px;
+      margin-bottom: 12px;
+    }
+
+    #signInButton {
+      margin-top: 6px;
+    }
+
+    .field-group {
+      display: grid;
+      min-width: 0;
+      gap: 4px;
+    }
+
+    .field-label {
+      min-width: 0;
+      font-size: 13px;
+      line-height: 1.3;
+      font-weight: 600;
+      overflow-wrap: anywhere;
+    }
+
+    .password-note {
+      margin: -4px 0 0;
+      font-size: 12px;
+      line-height: 1.35;
+      overflow-wrap: anywhere;
+    }
+
+    .password-note a {
+      color: var(--nova-link);
+      text-underline-offset: 2px;
+    }
+
+    .password-note a:focus-visible {
+      outline: auto;
+      outline-offset: 0;
+      border-radius: 2px;
+    }
+
+    @media (forced-colors: active) {
+      .password-note a {
+        color: LinkText;
+      }
+    }
+
+    input {
+      width: 100%;
+      min-width: 0;
+      min-height: var(--nova-control-height);
+      padding: 7px 10px;
+      border: 1px solid var(--nova-border);
+      border-radius: 12px;
+      outline: 0;
+      background: var(--nova-field-surface);
+      color: var(--nova-field-text);
+      font: 14px system-ui, sans-serif;
+    }
+
+    input:focus {
+      border-color: var(--nova-accent);
+      box-shadow: 0 0 0 2px color-mix(in srgb, var(--nova-accent) 30%, transparent);
+    }
+
+    button {
+      width: 100%;
+      height: auto;
+      min-height: var(--nova-control-height);
+      min-width: 0;
+      padding: 7px 16px;
+      border: 0;
+      border-radius: 24px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      font: 600 14px/1.25 system-ui, sans-serif;
+      text-align: center;
+      white-space: normal;
+      overflow-wrap: anywhere;
+    }
+
+    .primary {
+      background: var(--nova-accent);
+      color: var(--nova-accent-text);
+    }
+
+    .primary:not(:disabled):hover {
+      background: var(--nova-accent-hover);
+    }
+
+    .primary:not(:disabled):active {
+      background: var(--nova-accent-active);
+    }
+
+    button:disabled {
+      opacity: 0.5;
+      cursor: default;
+    }
+
+    .secondary {
+      margin-top: 8px;
+      background: color-mix(in srgb, var(--nova-text) 14%, transparent);
+      box-shadow: inset 0 0 0 1px color-mix(in srgb, var(--nova-text) 42%, transparent);
+      color: var(--nova-text);
+    }
+
+    .secondary:hover {
+      background: color-mix(in srgb, var(--nova-text) 20%, transparent);
+    }
+
+    .secondary:active {
+      background: color-mix(in srgb, var(--nova-text) 26%, transparent);
+    }
+
+    .account {
+      margin-bottom: 12px;
+      color: var(--nova-text);
+      font-size: 13px;
+      line-height: 1.4;
+      font-weight: 600;
+      overflow-wrap: anywhere;
+    }
+
+    .account.success {
+      color: var(--nova-success);
+    }
+
+    button:focus-visible {
+      outline: auto;
+      outline-offset: 3px;
+    }
+
+    .status {
+      margin-top: 8px;
+      font-size: 13px;
+      line-height: 1.4;
+      overflow-wrap: anywhere;
+    }
+
+    .status.error {
+      color: var(--nova-error);
+    }
+
+    /* The Firefox theme API can supply colors that do not form usable
+       control pairs in Windows contrast themes. Use matched system colors
+       directly, overriding theme variables only while forced colors are on. */
+    @media (forced-colors: active) {
+      body {
+        background: Canvas;
+        color: CanvasText;
+      }
+
+      .account,
+      .account.success,
+      .status.error {
+        color: CanvasText;
+      }
+
+      input {
+        background: Field;
+        color: FieldText;
+        border: 1px solid FieldText;
+      }
+
+      input::placeholder {
+        color: FieldText;
+        opacity: 1;
+      }
+
+      input:focus {
+        border-color: Highlight;
+        box-shadow: none;
+        outline: 2px solid CanvasText;
+        outline-offset: 2px;
+      }
+
+      .primary,
+      .primary:not(:disabled):hover,
+      .primary:not(:disabled):active {
+        background: ButtonFace;
+        color: ButtonText;
+        border: 2px solid ButtonText;
+      }
+
+      .secondary,
+      .secondary:hover,
+      .secondary:active {
+        background: ButtonFace;
+        color: ButtonText;
+        border: 1px solid ButtonText;
+        box-shadow: none;
+      }
+
+      button:disabled {
+        opacity: 1;
+        color: GrayText;
+        border-color: GrayText;
+      }
+    }
+  </style>
+</head>
+<body>
+  <h1 data-i18n="popupTitle">Transparent PNG Poster</h1>
+  <div id="accountStatus" class="account" data-i18n="notSignedIn">Not signed in</div>
+
+  <form id="signInForm" class="login-form">
+    <p class="password-note" data-i18n-link="appPasswordHelp">Use a Bluesky app password, not your account password. <a href="https://bsky.app/settings/app-passwords" target="_blank" rel="noopener noreferrer" data-i18n="createAppPassword">Create an app password</a>.</p>
+    <div class="field-group">
+      <label class="field-label" for="handleInput" data-i18n="blueskyHandle">Bluesky handle</label>
+      <input id="handleInput" dir="ltr" autocomplete="username">
+    </div>
+    <div class="field-group">
+      <label class="field-label" for="passwordInput" data-i18n="blueskyAppPassword">Bluesky app password</label>
+      <input id="passwordInput" dir="ltr" type="password" autocomplete="off">
+    </div>
+    <button id="signInButton" class="primary" type="submit" data-i18n="signIn">Sign in</button>
+  </form>
+
+  <button id="openButton" class="primary" data-i18n="newTransparentPngPost" hidden>New transparent PNG post</button>
+  <button id="signOutButton" class="secondary" data-i18n="signOut" hidden>Sign out</button>
+  <div id="statusMessage" class="status" aria-live="polite"></div>
+
+  <script src="i18n.js"></script>
+  <script src="theme.js"></script>
+  <script src="popup.js"></script>
+</body>
+</html>
