@@ -18,7 +18,7 @@ The extension adds a **PNG button** to Bluesky's New post composer. It also prov
 
 ## Getting started
 
-1. Install the extension in Firefox. (AMO installation link will be added when published.)
+1. [Install Bluesky Transparent PNG Poster from Firefox Add-ons (AMO)](https://addons.mozilla.org/en-US/firefox/addon/bluesky-transparent-png-poster/).
 2. Sign in to Bluesky at `bsky.app`.
 3. Open the Bluesky New post composer and select the PNG button, or start a new post using the Firefox extension toolbar button.
 4. Sign in to the PNG composer using a [Bluesky app password](https://bsky.app/settings/app-passwords). This authenticates the extension's separate connection to Bluesky's API, which it uses to upload images and publish posts.
